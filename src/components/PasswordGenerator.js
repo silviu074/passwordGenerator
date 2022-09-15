@@ -1,17 +1,51 @@
 import React, { useState } from 'react'
 
+    const NUMBERS = arrayASCII(48,57)
+    const UPPERCASE = arrayASCII(65,90)
+    const LOWERCASE = arrayASCII(97,122)
+    const SYMBOLS = arrayASCII(33,47).concat(arrayASCII(58,64))
+    console.log(NUMBERS)
+    console.log(UPPERCASE)
+    console.log(LOWERCASE)
+    console.log(SYMBOLS)
 
+    function arrayASCII(min,max){
+      const array=[]
+      for(let i=min;i<=max;i++){
+        let j=String.fromCharCode(i)
+        array.push(j)
+      }
+      return array
+    }
 
-    // Synchronizing the length and range for the minimum numbers of characters required------------------------------
-
-
-    // function handleMinimumLength(e){
+    // function password (a , length) {
+    //   const password=[]
+    //   for(let i=0; i<=length; i++){
+    //     const x = characters[Math.floor(Math.random()*length)]
+    //     password.push(x)
+    //   }
     // }
 
+    function usableCharacters(length,upperCase,numbers,symbols){
 
-    // Synchronizing the length and range for the minimum numbers of characters required------------------------------
+      const characters = []
+      console.log(length)
+      console.log(upperCase)
+      console.log(numbers)
+      console.log(symbols)
 
+      switch(true){
+        case upperCase && numbers && symbols:
+          characters = LOWERCASE.concat(UPPERCASE).concat(NUMBERS).concat(SYMBOLS)
+          break;
+      }
 
+      
+      console.log(characters)
+      
+    }
+
+    
 export const PasswordGenerator =() =>  {
 
     const [characterAmountNumber, setcharacterAmountNumber] = useState(6)
@@ -20,31 +54,14 @@ export const PasswordGenerator =() =>  {
     const [hasNumbers, setHasNumbers] = useState(false)
     const [hasSymbols, setHasSymbols] = useState(false)
 
-    const emptyArray=[]
-    const UPPERCASE = arrayAnsi(97.122)
-    const LOWERCASE = arrayAnsi(65.90)
-    const NUMBERS = arrayAnsi(48.57)
-    const SYMBOLS = arrayAnsi(33.47).concat(arrayAnsi(58,64)).concat(arrayAnsi(91,96)).concat(arrayAnsi(123,126))
-    console.log(UPPERCASE)
-    console.log(LOWERCASE)
-    console.log(NUMBERS)
-    console.log(SYMBOLS)
-
-
-    function arrayAnsi(min,max){
-      const array=[]
-      for(let i=min;i<=max;i++){
-        array.push(i)
-      }
-      return array
-    }
-
    return (
     <div>
         <div className="container">
         <h1>Password Generator</h1>
+        <div>
+          <p>Password</p>
+          <button>copy</button></div>
         <div className="inputs">
-
         <div>
          <label htmlFor='minumumLengthNumber' >Minimum lenth: </label>
 
@@ -80,6 +97,7 @@ export const PasswordGenerator =() =>  {
             setHasUpperCaseLetters(current => !current)
          } }
           />
+          
 
          <label htmlFor='hasNumbers' >At least one number: </label>
          <input 
@@ -99,7 +117,9 @@ export const PasswordGenerator =() =>  {
             setHasSymbols(current => !current)
          } }  />
         </div>
-        <button type='submit'>Generate Password</button>
+        <button type='submit' 
+        onClick={usableCharacters(characterAmountNumber, hasUpperCaseLetters, hasNumbers, hasSymbols)}>
+          Generate Password</button>
 
       </div>
     </div>
