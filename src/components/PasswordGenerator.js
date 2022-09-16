@@ -26,22 +26,31 @@ import React, { useState } from 'react'
     //   }
     // }
 
-    function usableCharacters(length,upperCase,numbers,symbols){
+    const usableCharacters = (length,upperCase,numbers,symbols) => {
 
-      const characters = []
-      console.log(length)
-      console.log(upperCase)
-      console.log(numbers)
-      console.log(symbols)
+      let characters = LOWERCASE
+      let password=[]
 
-      switch(true){
-        case upperCase && numbers && symbols:
-          characters = LOWERCASE.concat(UPPERCASE).concat(NUMBERS).concat(SYMBOLS)
-          break;
+      if(upperCase){
+        characters = characters.concat(UPPERCASE)
+      }
+
+      if(numbers){
+        characters = characters.concat(NUMBERS)
+      }
+
+      if(symbols){
+        characters = characters.concat(SYMBOLS)
       }
 
       
-      console.log(characters)
+      for(let i=0; i<=length; i++){
+        const x = characters[Math.floor(Math.random()*characters.length)]
+        password.push(x)
+      }
+      
+      console.log(password.join(''))
+      // return password.join('')
       
     }
 
@@ -53,13 +62,15 @@ export const PasswordGenerator =() =>  {
     const [hasUpperCaseLetters, setHasUpperCaseLetters] = useState(false)
     const [hasNumbers, setHasNumbers] = useState(false)
     const [hasSymbols, setHasSymbols] = useState(false)
+   
 
+  let password = 'asdasd'
    return (
     <div>
         <div className="container">
         <h1>Password Generator</h1>
         <div>
-          <p>Password</p>
+          <p id="password">{password}</p>
           <button>copy</button></div>
         <div className="inputs">
         <div>
@@ -117,6 +128,7 @@ export const PasswordGenerator =() =>  {
             setHasSymbols(current => !current)
          } }  />
         </div>
+        
         <button type='submit' 
         onClick={usableCharacters(characterAmountNumber, hasUpperCaseLetters, hasNumbers, hasSymbols)}>
           Generate Password</button>
