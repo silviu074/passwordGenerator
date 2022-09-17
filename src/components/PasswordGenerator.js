@@ -4,10 +4,6 @@ import React, { useState } from 'react'
     const UPPERCASE = arrayASCII(65,90)
     const LOWERCASE = arrayASCII(97,122)
     const SYMBOLS = arrayASCII(33,47).concat(arrayASCII(58,64))
-    console.log(NUMBERS)
-    console.log(UPPERCASE)
-    console.log(LOWERCASE)
-    console.log(SYMBOLS)
 
     function arrayASCII(min,max){
       const array=[]
@@ -41,36 +37,38 @@ import React, { useState } from 'react'
         password.push(x)
       }
       
-      console.log(password.join(''))
       return password.join('')
       
     }
 
     
-export const PasswordGenerator =() =>  {
+export const PasswordGenerator = () =>  {
 
     const [characterAmountNumber, setcharacterAmountNumber] = useState(6)
     const [characterAmountRange, setcharacterAmountRange] = useState(6)
     const [hasUpperCaseLetters, setHasUpperCaseLetters] = useState(false)
     const [hasNumbers, setHasNumbers] = useState(false)
     const [hasSymbols, setHasSymbols] = useState(false)
-    const [password, setPassword] = useState('')
+    const [password, setPassword] = useState('Your password')
    
   
    return (
-    <div>
+    <div className='render'>
         <div className="container">
         <h1>Password Generator</h1>
-        <div>
-          <p>{password}</p>
-          <button onClick={() => { 
+        <div className="displayPassword">
+          <p className='fakeInput'>{password}</p>
+          <button
+          onClick={() => { 
             navigator.clipboard.writeText(password)
             alert(`${password}  was copied to clipboard`)
-          }}>copy</button></div>
+          }}>
+            <img 
+          className='copyIcon' src='https://i.pngimg.me/thumb/f/720/m2H7G6A0i8N4A0N4.jpg' alt='copy icon'></img>
+            </button></div>
         <div className="inputs">
-        <div>
+        <div className='condition'>
          <label htmlFor='minumumLengthNumber' >Minimum lenth: </label>
-
          <input type="range"
             id="minumumLengthRange"
             min={6}
@@ -94,6 +92,8 @@ export const PasswordGenerator =() =>  {
            } }/>
          </div>
 
+
+           <div className='condition'>
          <label htmlFor='hasUpperCaseLetters' >At least one uppercase letter: </label>
          <input 
           type="checkbox" 
@@ -102,9 +102,9 @@ export const PasswordGenerator =() =>  {
           onChange={ () => {
             setHasUpperCaseLetters(current => !current)
          } }
-          />
+          /></div>
           
-
+          <div className='condition'>
          <label htmlFor='hasNumbers' >At least one number: </label>
          <input 
            type="checkbox" 
@@ -112,8 +112,9 @@ export const PasswordGenerator =() =>  {
            value={hasNumbers}
            onChange={ () => {
             setHasNumbers(current => !current)
-         } }  />
+         } }  /></div>
 
+          <div className='condition'>
          <label htmlFor='hasSymbols' >At least one symbol: </label>
          <input 
           type="checkbox" 
@@ -121,10 +122,10 @@ export const PasswordGenerator =() =>  {
           value={hasSymbols}
           onChange={ () => {
             setHasSymbols(current => !current)
-         } }  />
+         } }  /></div>
         </div>
         
-        <button type='submit' 
+        <button type='submit'  className='generate'
         onClick={() => setPassword(createPassword(characterAmountNumber, hasUpperCaseLetters, hasNumbers, hasSymbols))}>
           Generate Password</button>
 
