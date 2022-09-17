@@ -18,15 +18,7 @@ import React, { useState } from 'react'
       return array
     }
 
-    // function password (a , length) {
-    //   const password=[]
-    //   for(let i=0; i<=length; i++){
-    //     const x = characters[Math.floor(Math.random()*length)]
-    //     password.push(x)
-    //   }
-    // }
-
-    const usableCharacters = (length,upperCase,numbers,symbols) => {
+    const createPassword = (length,upperCase,numbers,symbols) => {
 
       let characters = LOWERCASE
       let password=[]
@@ -50,7 +42,7 @@ import React, { useState } from 'react'
       }
       
       console.log(password.join(''))
-      // return password.join('')
+      return password.join('')
       
     }
 
@@ -62,16 +54,19 @@ export const PasswordGenerator =() =>  {
     const [hasUpperCaseLetters, setHasUpperCaseLetters] = useState(false)
     const [hasNumbers, setHasNumbers] = useState(false)
     const [hasSymbols, setHasSymbols] = useState(false)
+    const [password, setPassword] = useState('')
    
-
-  let password = 'asdasd'
+  
    return (
     <div>
         <div className="container">
         <h1>Password Generator</h1>
         <div>
-          <p id="password">{password}</p>
-          <button>copy</button></div>
+          <p>{password}</p>
+          <button onClick={() => { 
+            navigator.clipboard.writeText(password)
+            alert(`${password}  was copied to clipboard`)
+          }}>copy</button></div>
         <div className="inputs">
         <div>
          <label htmlFor='minumumLengthNumber' >Minimum lenth: </label>
@@ -130,7 +125,7 @@ export const PasswordGenerator =() =>  {
         </div>
         
         <button type='submit' 
-        onClick={usableCharacters(characterAmountNumber, hasUpperCaseLetters, hasNumbers, hasSymbols)}>
+        onClick={() => setPassword(createPassword(characterAmountNumber, hasUpperCaseLetters, hasNumbers, hasSymbols))}>
           Generate Password</button>
 
       </div>
