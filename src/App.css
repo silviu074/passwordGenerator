@@ -30,8 +30,8 @@
 }
 
 .condition {
-  margin-top:5px;
-  margin-bottom: 5px;
+  margin-top:10px;
+  margin-bottom: 10px;
 }
 
 .copyIcon{
@@ -61,4 +61,8 @@
   border: 5px solid white;
   border-radius: 15px;
   padding: 10px;
+}
+
+.title{
+  padding-top:20px;
 }

@@ -55,7 +55,7 @@ export const PasswordGenerator = () =>  {
    return (
     <div className='render'>
         <div className="container">
-        <h1>Password Generator</h1>
+        <h1 className="title">Password Generator</h1>
         <div className="displayPassword">
           <p className='fakeInput'>{password}</p>
           <button
@@ -67,7 +67,7 @@ export const PasswordGenerator = () =>  {
           className='copyIcon' src='https://i.pngimg.me/thumb/f/720/m2H7G6A0i8N4A0N4.jpg' alt='copy icon'></img>
             </button></div>
         <div className="inputs">
-        <div className='condition'>
+        <div className="condition">
          <label htmlFor='minumumLengthNumber' >Minimum lenth: </label>
          <input type="range"
             id="minumumLengthRange"
@@ -93,7 +93,7 @@ export const PasswordGenerator = () =>  {
          </div>
 
 
-           <div className='condition'>
+           <div className="condition">
          <label htmlFor='hasUpperCaseLetters' >At least one uppercase letter: </label>
          <input 
           type="checkbox" 
@@ -104,7 +104,7 @@ export const PasswordGenerator = () =>  {
          } }
           /></div>
           
-          <div className='condition'>
+          <div className="condition">
          <label htmlFor='hasNumbers' >At least one number: </label>
          <input 
            type="checkbox" 
@@ -114,7 +114,7 @@ export const PasswordGenerator = () =>  {
             setHasNumbers(current => !current)
          } }  /></div>
 
-          <div className='condition'>
+          <div className="condition">
          <label htmlFor='hasSymbols' >At least one symbol: </label>
          <input 
           type="checkbox" 
