@@ -1,70 +1,81 @@
-# Getting Started with Create React App
+# React Password Generator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a password generator that can help you create complex random passwords.
 
-## Available Scripts
+## Built with
 
-In the project directory, you can run:
+  * HTML 
+  * CSS
+  * Javascript
+  * React
+  
+## Demo
 
-### `npm start`
+https://user-images.githubusercontent.com/44822821/191117050-567c07bf-a870-4560-80a9-ae1c16c0e52e.mp4
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## How does this work?
 
-### `npm test`
+There are 4 arrays which correspond to different type of characters:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* lowercase
+* uppercase
+* numbers
+* symbols _(not all symbol type characters are included in this project)_
 
-### `npm run build`
+These arrays are created using a function which converts ANSI numbers to characters.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+    const NUMBERS = arrayASCII(48,57)
+    const UPPERCASE = arrayASCII(65,90)
+    const LOWERCASE = arrayASCII(97,122)
+    const SYMBOLS = arrayASCII(33,47).concat(arrayASCII(58,64))
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    function arrayASCII(min,max){
+      const array=[]
+      for(let i=min;i<=max;i++){
+        let j=String.fromCharCode(i)
+        array.push(j)
+      }
+      return array
+    }
+  
+```  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+When I click "Generate password" a function is called. This function returns a string with random characters extracted from an array which varies depensing on the value of the checkboxes:
+  
+```
 
-### `npm run eject`
+     const createPassword = (length,upperCase,numbers,symbols) => {
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+      let characters = LOWERCASE // the starting array contains all lowecase characters
+      let password=[]
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+      if(upperCase){ // verifies if "At least one uppercase letter" checkbox is true
+        characters = characters.concat(UPPERCASE)
+      }
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+      if(numbers){ // verifies if "At least one number" checkbox is true
+        characters = characters.concat(NUMBERS)
+      }
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+      if(symbols){ // verifies if "At least one symbol" checkbox is true
+        characters = characters.concat(SYMBOLS)
+      }
 
-## Learn More
+      for(let i=0; i<=length; i++){
+        const x = characters[Math.floor(Math.random()*characters.length)]
+        password.push(x) 
+        // adds a random character from the characters array 
+      }
+      
+      return password.join('') // returns this array as string
+      
+    }
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+  
+## Credits
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Web Dev Simplified](https://www.youtube.com/watch?v=iKo9pDKKHnc)
