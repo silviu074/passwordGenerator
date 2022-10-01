@@ -16,28 +16,36 @@ import React, { useState } from 'react'
 
     const createPassword = (length,upperCase,numbers,symbols) => {
 
-      let characters = LOWERCASE
+      let characters = LOWERCASE // the starting array contains all lowecase characters
       let password=[]
 
-      if(upperCase){
+      // if "At least one uppercase letter" checkbox is true => add uppercase characters to the array
+
+      if(upperCase){ 
         characters = characters.concat(UPPERCASE)
       }
 
-      if(numbers){
+      // if "At least one number" checkbox is true => add numbers to the array
+
+      if(numbers){ 
         characters = characters.concat(NUMBERS)
       }
 
-      if(symbols){
+      // if "At least one symbol" checkbox is true => add symbol type characters to the array
+
+      if(symbols){ 
         characters = characters.concat(SYMBOLS)
       }
 
-      
+
+      // generate a password with random characters from the array defined before
+
       for(let i=0; i<=length; i++){
         const x = characters[Math.floor(Math.random()*characters.length)]
-        password.push(x)
+        password.push(x) 
       }
       
-      return password.join('')
+      return password.join('') // returns this array as string
       
     }
 
